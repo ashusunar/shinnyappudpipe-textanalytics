@@ -14,16 +14,15 @@ shinyServer(function(input, output) {
                    return(NULL) } else{
       
         Data <- readLines(input$txtfile$datapath)
-        #Data <- str_replace_all(Data, "<.*?>", "")
+        
         return(Data) 
     }
   })
   
   langmodel <- reactive({
     if (is.null(input$udpidelangmodel)) {   # locate 'file1' from ui.R
-      #return(NULL) 
-      english_model = udpipe_load_model("./english-ud-2.0-170801.udpipe")
-      return(english_model)
+      return(NULL) 
+      
                                         } else{
         Data <- udpipe_load_model(input$udpidelangmodel$datapath)
         windowsFonts(devanew=windowsFont("Devanagari new normal"))
@@ -51,8 +50,6 @@ shinyServer(function(input, output) {
   
   udipipedata <- reactive({
     
-    #data <- udpipe_annotate(langmodel(), x = Dataset())
-    #data <- as.data.frame(data)
     windowsFonts(devanew=windowsFont("Devanagari new normal"))
     datacooc <- cooccurrence(     # try `?cooccurrence` for parm options
       x = subset(final_data(), xpos %in% xposstring()), 
@@ -62,14 +59,6 @@ shinyServer(function(input, output) {
   })
 
 
-# top_nouns <- reactive({
-#    data1 <- udpipe_annotate(langmodel(), x = Dataset())
-#    data1 <- as.data.frame(data)
-#    all_nouns = data1 %>% subset(., data$xpos %in% "NN")
-#    top_nouns = txt_freq(all_nouns$lemma)
-#    return(top_nouns)
-    
-#  })
 
   subtitlestr <-reactive({
     titlestr = NULL
@@ -100,12 +89,11 @@ output$coocplotsent = renderPlot({
     ggraph(wordnetwork, layout = "fr") +  
       
       geom_edge_link(aes(width = cooc, edge_alpha = cooc), edge_colour = "orange") +  
-      geom_node_text(aes(label = name), col = "darkgreen", size = 4) +
+      geom_node_text(aes(label = name), col = "darkgreen", size = 5) +
       
       theme_graph(base_family = "Arial Narrow") +  
       theme(legend.position = "none") +
-      
-      #labs(title = "Cooccurrences within 3 words distance", subtitle = "Adjective/Noun/Pronoun/Adverb/Verb")
+    
       labs(title = "Cooccurrences within 3 words distance", 
          subtitle = paste(subtitlestr(),collapse = ''))
        })
@@ -113,8 +101,6 @@ output$coocplotsent = renderPlot({
 
 wordcloud_data <- reactive({
   
-  #data1 <- udpipe_annotate(langmodel(), x = Dataset())
-  #data1 <- as.data.frame(data1)
   windowsFonts(devanew=windowsFont("Devanagari new normal"))
   temp = final_data() %>% subset(., xpos %in% xposstring())
   wcloud = txt_freq(temp$lemma)
@@ -129,7 +115,7 @@ output$wordcloud = renderPlot({
             min.freq = 2, 
             max.words = 100,
             random.order = FALSE, 
-            colors = brewer.pal(6, "Dark2"))
+            colors = brewer.pal(35, "Dark2"))
  
   
 })
@@ -137,13 +123,3 @@ output$wordcloud = renderPlot({
   
 })
 
-#things to do:
-#error msg display ashu
-#selection display message for check box
-#host englist model on github
-#show flowchart
-#check .txt file else display error msg ashu
-#explain overview about app
-#if else statment to subtitle string ashu
-#spanish read
-#hindi display

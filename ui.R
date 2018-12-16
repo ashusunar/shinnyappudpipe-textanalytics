@@ -3,7 +3,8 @@
 #---------------------------------------------------------------------#
 
 
-library(shiny)
+library("shiny")
+
 library(udpipe)
 library(textrank)
 library(lattice)
@@ -12,6 +13,9 @@ library(ggraph)
 library(ggplot2)
 library(wordcloud)
 library(stringr)
+library(igraph)
+library(ggraph)
+library(ggplot2)
 
 
 shinyUI(
@@ -25,14 +29,14 @@ shinyUI(
                       "))
       ),
     
-    titlePanel("NLP using UDPipe"),
-    #windowsFonts(devanew=windowsFont("Devanagari new normal")),
+    titlePanel("UDPipe NLP Work Flow"),
+    
     sidebarLayout( 
       
       sidebarPanel(  
         
-              fileInput("txtfile", "Upload data (Input Text file )"),
-              fileInput("udpidelangmodel", "Upload Trained udpipe model for any language"),
+              fileInput("txtfile", "Upload a Text File (.txt format only)"),
+              fileInput("udpidelangmodel", "Upload Trained udpipe model as per language of the Text file you have uploaded above!"),
               checkboxInput("inputadjective","adjective(JJ)",TRUE),
               checkboxInput("inputnoun","noun(NN)",TRUE),
               checkboxInput("inputpropernoun","proper noun(NNP)",TRUE),
@@ -46,17 +50,25 @@ shinyUI(
       tabsetPanel(type = "tabs",
                   
                       tabPanel("Overview",
-                               h4(p("Data input")),
-                               p("This app supports only comma separated values (.csv) data file. CSV data file should have headers and the first column of the file should have row names.",align="justify"),
-                               p("Please refer to the link below for sample csv file."),
-                               a(href="https://github.com/sudhir-voleti/sample-data-sets/blob/master/Segmentation%20Discriminant%20and%20targeting%20data/ConneCtorPDASegmentation.csv"
-                                 ,"Sample data input file"),   
+                               h4(p("Data input:")),
+                               p("This app supports only Text file (.txt data file). Please upload a text file for NLP analysis in any language. As per the language of your text file data, please remember to also select a Trained UD Pipe model of the similar language! ",align="justify"),
                                br(),
-                               h4('How to use this App'),
-                               p('To use this app, click on', 
-                                 span(strong("Upload data (csv file with header)")),
-                                 'and uppload the csv data file. You can also change the number of clusters to fit in k-means clustering')),
-                  
+                               
+                               h4(p('How to use this App?')),
+                               p('Step 1: upload a text file for language of your choice (.txt format only)'),
+                               p('Step 2: upload a trained UDpipe model for that language (as per the language of text file loaded above)'),
+                               p('Step 3: select between Adjective, Noun, Proper Noun, Adverb and Verb - as per the output you seek for your text'),
+                               p('Step 4: be patient for results to appear/ change as per your selection and see the outputs across 3 tabs, i.e. Co-occurence plot, XPOS table and Word Cloud '),
+                               br(),
+                               
+                               h4(p('Working of the app:')),
+                               p('Basis your selection of data file, trained UDpipe model and the XPOS selected the display changes and appears for each of the display sections, i.e. Co-occurence plot, XPOS table and Word cloud'),
+                               br(),
+                               
+                               h4(p('Disclaimer!')),
+                               p('1. Fonts in Hindi might not display correctly if you do not have Devnagri script installed for your Windows/ Mac. However the code runs well behind the scenes.'),
+                               p('2. By default XPOS seelcted are Adjective, Noun and Proper Noun; in case you do not make any selections on your own.')),
+                               
                   tabPanel("Co-Occurrene plot (as per xpos selected)", 
                                    plotOutput('coocplotsent')),
                   
