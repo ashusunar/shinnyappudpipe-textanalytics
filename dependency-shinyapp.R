@@ -11,7 +11,8 @@ try(require(magrittr) || install.packages("magrittr"))
 try(require(tidytext) || install.packages("tidytext"))
 try(require(dplyr) || install.packages("dplyr"))
 try(require(tidyr) || install.packages("tidyr"))
-
+try(require(slam) || install.packages("slam"))
+try(require(text2vec) || install.packages("text2vec"))
 
 
 library(shiny)
@@ -27,3 +28,5 @@ library(magrittr)
 library(tidytext)
 library(dplyr)
 library(tidyr)
+library(slam)
+library(text2vec)
