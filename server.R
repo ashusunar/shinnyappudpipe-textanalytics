@@ -8,7 +8,9 @@ shinyServer(function(input, output) {
     
     if (is.null(input$txtfile)) {   # locate 'file1' from ui.R
       validate(
-        need(input$txtfile$datapath == "", "            Please select a Input data set              "),errorClass = "myClass"
+        need(input$txtfile$datapath == "", "            
+             
+             Please select a Input data set and Language model"),errorClass = "myClass"
       )
       
                    return(NULL) } else{
@@ -20,7 +22,12 @@ shinyServer(function(input, output) {
   })
   
   langmodel <- reactive({
-    if (is.null(input$udpidelangmodel)) {   # locate 'file1' from ui.R
+    if (is.null(input$udpidelangmodel)) {
+      validate(
+        need(input$txtfile$datapath == "", "            
+             
+             Please select a Input data set and Language model"),errorClass = "myClass"
+      )# locate 'file1' from ui.R
       return(NULL) 
       
                                         } else{
