@@ -2,6 +2,10 @@
 #               Shinny App - UDPipe NLP workflow                      #
 #---------------------------------------------------------------------#
 
+# Team Members:
+# Ashutosh Sunar (1181 0017)
+# Deepa Prakash (1181 0128)
+# Sundeep Vachhani (1181 0086)
 
 library("shiny")
 

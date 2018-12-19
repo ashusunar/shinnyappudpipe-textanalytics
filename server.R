@@ -1,3 +1,12 @@
+#---------------------------------------------------------------------#
+#               Shinny App - UDPipe NLP workflow                      #
+#---------------------------------------------------------------------#
+
+# Team Members:
+# Ashutosh Sunar (1181 0017)
+# Deepa Prakash (1181 0128)
+# Sundeep Vachhani (1181 0086)
+
 
 options(shiny.maxRequestSize=30*1024^2) 
 windowsFonts(devanew=windowsFont("Devanagari new normal"))
